@@ -1,6 +1,6 @@
-# int-net
+# int-net: Redes Intermitentes
 Carlos Camacho Soto, marzo 2026
-
+### Trabajo en proceso
 ## Redes con flujo intermitente
 En países en vías de desarrollo es común que los sistemas de acueductos funciones bajo condiciones de flujo intermitente, 
 mayormente debidas a déficit de producción con respecto a la demanda, de modo que la red no es capaz de soportar el patrón
@@ -38,7 +38,8 @@ demanda posible.  Esto implica una curva de demanda para cada nodo ó grupo de n
 un déficit de abastecimiento.
 * Determinar los tiempos de llenado y vaciado del sistema, a manera de aproximación usando flujo permanente.  Puede buscarse una metodología
 para modelar flujo no permanente.
-* Investigar la forma de modelar el sistema mientras se realiza el llenado y
+* Investigar la forma de modelar el sistema mientras se realiza el llenado, sin requerir uso de transientes y flujo no permanente, sino
+  con escenarios en intervalos de tiempo discretos y variables.
 
 ## Ideas de desarrollo
 * Propagación del llenado  (y posiblemente de vaciado en sentido opuesto): 
@@ -58,6 +59,7 @@ posible satisfacer las 2 demandas: demanda del usuario y demanda de llenado.  Es
 modelar el funcionamienro de la red mientras no llena.
 A cada paso de un tiempo DeltaT, los nudos van entrando a presión y el valor del caudal demandado empieza a estabilizarse de abajo hacia 
 arriba.
+** El paso del tiempo puede hacerse usando los tiempos de llenado de cada uno de los nudos obtenidos en el paso anterior.
 * Usar EPANet en línea de comando y hacer los algoritmos y rutinas de modificación de los archivos de entrada y análisis de los archivos 
 de salida en BASH, Python y otras herramientas de procesamiento de texto.
 
