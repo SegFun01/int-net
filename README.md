@@ -8,21 +8,29 @@ de consumo diario.  Esto ocasiona que las redes puedan entrar a régimen de cana
 momento del día.  Otras ocasiones, debido a fallas en los elementos productivos, la red puede vaciarce parcial o totalmente
 ocasionando desabastecimiento, el cual se prolonga desde el momento de la falla hasta que pueda lograrse la estabilización
 del funcionamiento de la red.
+
 El Método del Gradiente Hidráulico (MGH) es una herramienta que permite modelar el funcionamiento de redes bajo régimen de presión,
 sin embargo tiende a fallar cuando el caudal aportado a la red no puede satisfacer la demanda.  En estas ocasiones, las líneas
 de energía tienden a cortar la topográfica de modo que los nudos tendrán presiones negativas.
+
 Las presiones negativas en el MGH son matemáticamente correctas son físicamente incorrectas, porque la presión mínima que puede
 haber en las acometidas de los usuarios es la presión atmosférica, de modo que el caudal en esos nodos no puede ser el que se
 se asignó al nodo correspondiente sino que va a tener un valor cero o cercano a cero.
+
 Esta discrepancia entre los caudales asignados y los posibles, introduce un valor de caudal asociado a los tramos conectados
 a esos nodos que no representa las posibilidades físicas, es decir, que esos caudales estarán sobreestimados.
 Se entra así en un círculo vicioso en el que las pérdidas de carga asignadas al tramo también están sobreestimadas y la 
 piezométrica no se clavará tanto y la presión en el nodo no será negativa.
+
 Reponer al sistema de este funcionamiento con nodo negativo es necesario para encontrar el verdadero equilibrio entre los caudales
 en tramos, demandas en (mejor dicho aportes a) los nudos y corregir el cálculo de las pérdidas de energía en cada tramo, ya sea
 funcionando a presión como a canal abierto es necesario para poder representar la realidad del funcionamiento de la red.
+
 Del análisis de las presiones negativas se puede inferir cuales puntos de la red van a tener problemas de funcionamiento, sin
 embargo esas presiones negativas están teñidas de la incertidumbre debida a que el equilibrio puede ser otro.
+
+Otro factor importante es el tiempo de llenado de la red que depende del tiempo de propagación y del efecto de la demanda mientras
+el flujo se propaga.
 
 ## Objetivos del proyecto
 * Desarrollo de un modelo de redes hidráulicas de redes intermitentes usando el Método de Gradiente Hidráulico (EPAnet) y rutinas
@@ -60,6 +68,8 @@ modelar el funcionamienro de la red mientras no llena.
 A cada paso de un tiempo DeltaT, los nudos van entrando a presión y el valor del caudal demandado empieza a estabilizarse de abajo hacia 
 arriba.
 ** El paso del tiempo puede hacerse usando los tiempos de llenado de cada uno de los nudos obtenidos en el paso anterior.
+** Hay que condiderar el caudal demandado en los nudos inferiores en el cálculo de los tiempos de llenado de los nudos susecuentes.  Es decir
+  que en la fórmula de cálculo del tiempo t_2 en adelante hay que 
 * Usar EPANet en línea de comando y hacer los algoritmos y rutinas de modificación de los archivos de entrada y análisis de los archivos 
 de salida en BASH, Python y otras herramientas de procesamiento de texto.
 
