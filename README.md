@@ -86,6 +86,6 @@ de salida en BASH, Python y otras herramientas de procesamiento de texto.
 
    `...thinking...`
    
-*   
+
 
 
