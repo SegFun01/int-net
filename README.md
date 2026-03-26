@@ -51,10 +51,11 @@ para modelar flujo no permanente.
 
 ## Ideas de desarrollo
 * Propagación del llenado  (y posiblemente de vaciado en sentido opuesto): 
-  - Se inicia con el punto más bajo, a este se le asigna un tiempo inicial $t_0$ que resulte en la distancia más corta entre la fuente y el 
-nudo, dividida entre la velocidad media del flujo en la red.  Puede usarse un valor inicial de 2[m/s]
+  - Se inicia con el punto más bajo, a este se le asigna un tiempo inicial $t_1$ que resulte en la distancia más corta entre la fuente y el 
+nudo, dividida entre la velocidad media del flujo en la red.  Puede usarse un valor inicial de 2[m/s].  El valor del tiempo de inicio del llenado
+sería $t_0=0$
   - Se hace un barrido de los nudos desde abajo hacia arriba, calculando el tiempo de llenado de cada tubería conectada al nudo con
-la longitud de la tubería dividida entre la velocidad del flujo media: $t_i = \frac{L}{v}$.   
+la longitud de la tubería dividida entre la velocidad del flujo media: $t_i = \frac{Li}{v}$.   
   - Se le asigna a cada nodo siguiente el tiempo del nudo anterior más el tiempo del tramo calculado como se indicó.  Si un nudo está 
 conectado a varior tubos, el tiempo del nudo será el que resulte ser el menor de las posibilidades dadas.
 marcan los tubos llenado así.   
@@ -72,10 +73,19 @@ arriba.
   que en la fórmula de cálculo del tiempo $t_2$ en adelante hay que condsiderar que el caudal tiene 2 propósitos, llenar tubo y abastecerlos
 nudos ya llenos.   Aún no se cómo, pero probablemente se usará un "longitud equivalente" o "velocidad reducida" que amplía el tiempo ded llenado
 de los subsecuentes nudos.
-* La cota de llenado va subiendo a medida que se van analizando los nudos de abajo hacia arrriba, y se van computando los tiempos para cada nudo.
-* Sería útil hacer una gráfica de nudos versus tiempo, o un mapa.
+  - La cota de llenado va subiendo a medida que se van analizando los nudos de abajo hacia arrriba, y se van computando los tiempos para cada nudo.
+  - Sería útil hacer una gráfica de nudos versus tiempo, o un mapa.
 * Usar EPANet en línea de comando y hacer los algoritmos y rutinas de modificación de los archivos de entrada y análisis de los archivos 
 de salida en BASH, Python y otras herramientas de procesamiento de texto.
+* Una vez completado el llenado, el sistema debe estabilizarse con presiones y demandas de manera que la presión mínima en los nudos sea cero,
+  en las horas de máxima demanda.
+*  Las demandas de los nudos siguen el patrón de demanda típico para el sistema según tipo de usuario, sin embargo, cuando hay interrupción del
+*  servicio por una parada, cierre o abastecimiento controlado, la curva de demanda se modifica de acuerdo a la necesidad y acciones de los usuarios,
+   resultando que el pico de demanda ocurre en los nudos que van entrando a presión, es decir que durante el proceso de llenado hay que considerar
+   las demandas de los nudos como el $Q_{MD}$.
 
+   `...thinking...`
+   
+*   
 
 
