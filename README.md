@@ -51,25 +51,29 @@ para modelar flujo no permanente.
 
 ## Ideas de desarrollo
 * Propagación del llenado  (y posiblemente de vaciado en sentido opuesto): 
-** Se inicia con el punto más bajo, a este se le asigna un tiempo inicial [t_0] que resulte en la distancia más corta entre la fuente y el 
+  - Se inicia con el punto más bajo, a este se le asigna un tiempo inicial $t_0$ que resulte en la distancia más corta entre la fuente y el 
 nudo, dividida entre la velocidad media del flujo en la red.  Puede usarse un valor inicial de 2[m/s]
-** Se hace un barrido de los nudos desde abajo hacia arriba, calculando el tiempo de llenado de cada tubería conectada al nudo con
-la longitud de la tubería dividida entre la velocidad del flujo media: [t_i = L/v].   
-** Se le asigna a cada nodo siguiente el tiempo del nudo anterior más el tiempo del tramo calculado como se indicó.  Si un nudo está 
+  - Se hace un barrido de los nudos desde abajo hacia arriba, calculando el tiempo de llenado de cada tubería conectada al nudo con
+la longitud de la tubería dividida entre la velocidad del flujo media: $t_i = \frac{L}{v}$.   
+  - Se le asigna a cada nodo siguiente el tiempo del nudo anterior más el tiempo del tramo calculado como se indicó.  Si un nudo está 
 conectado a varior tubos, el tiempo del nudo será el que resulte ser el menor de las posibilidades dadas.
 marcan los tubos llenado así.   
-** Luego se continúa con el siguiente nudo con la elevación menor de los que quedan, calculando el tiempo del flujo en cada tubo que no
+  - Luego se continúa con el siguiente nudo con la elevación menor de los que quedan, calculando el tiempo del flujo en cada tubo que no
 haya sido considerado antes. Se asignan los tiempos y se continúa con el proximo.
-** El proceso acaba cuando se llegue el último nodo, generalmente el nudo de elevación fija ya sea tanque o reservorio.
-** En el proceso se asigna un caudal en cada nudo incrementalmente de abajo hacia arriba, asignando el caudal de los tramos tributarios al
+  - El proceso acaba cuando se llegue el último nodo, generalmente el nudo de elevación fija ya sea tanque o reservorio.
+  - En el proceso se asigna un caudal en cada nudo incrementalmente de abajo hacia arriba, asignando el caudal de los tramos tributarios al
 nudo al final de cada trramo, es decir en el nudo.  Luego se debe descontar este caudal del demandado en cada nudo, ya que no es 
 posible satisfacer las 2 demandas: demanda del usuario y demanda de llenado.  Estos valores de caudal son los que pueden usarse para
 modelar el funcionamienro de la red mientras no llena.
-A cada paso de un tiempo DeltaT, los nudos van entrando a presión y el valor del caudal demandado empieza a estabilizarse de abajo hacia 
+A cada paso de un tiempo $\delta T$, los nudos van entrando a presión y el valor del caudal demandado empieza a estabilizarse de abajo hacia 
 arriba.
-** El paso del tiempo puede hacerse usando los tiempos de llenado de cada uno de los nudos obtenidos en el paso anterior.
-** Hay que condiderar el caudal demandado en los nudos inferiores en el cálculo de los tiempos de llenado de los nudos susecuentes.  Es decir
-  que en la fórmula de cálculo del tiempo t_2 en adelante hay que 
+  - El paso del tiempo puede hacerse usando los tiempos de llenado de cada uno de los nudos obtenidos en el paso anterior.
+  - Hay que condiderar el caudal demandado en los nudos inferiores en el cálculo de los tiempos de llenado de los nudos susecuentes.  Es decir
+  que en la fórmula de cálculo del tiempo $t_2$ en adelante hay que condsiderar que el caudal tiene 2 propósitos, llenar tubo y abastecerlos
+nudos ya llenos.   Aún no se cómo, pero probablemente se usará un "longitud equivalente" o "velocidad reducida" que amplía el tiempo ded llenado
+de los subsecuentes nudos.
+* La cota de llenado va subiendo a medida que se van analizando los nudos de abajo hacia arrriba, y se van computando los tiempos para cada nudo.
+* Sería útil hacer una gráfica de nudos versus tiempo, o un mapa.
 * Usar EPANet en línea de comando y hacer los algoritmos y rutinas de modificación de los archivos de entrada y análisis de los archivos 
 de salida en BASH, Python y otras herramientas de procesamiento de texto.
 
