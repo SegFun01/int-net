@@ -80,10 +80,12 @@ de salida en BASH, Python y otras herramientas de procesamiento de texto.
 * Una vez completado el llenado, el sistema debe estabilizarse con presiones y demandas de manera que la presión mínima en los nudos sea cero,
   en las horas de máxima demanda.
 *  Las demandas de los nudos siguen el patrón de demanda típico para el sistema según tipo de usuario, sin embargo, cuando hay interrupción del
-*  servicio por una parada, cierre o abastecimiento controlado, la curva de demanda se modifica de acuerdo a la necesidad y acciones de los usuarios,
+   servicio por una parada, cierre o abastecimiento controlado, la curva de demanda se modifica de acuerdo a la necesidad y acciones de los usuarios,
    resultando que el pico de demanda ocurre en los nudos que van entrando a presión, es decir que durante el proceso de llenado hay que considerar
    las demandas de los nudos como el $Q_{MD}$.
-
+* Usar controles para simular el efecto de tanque vacío donde el caudal que sale es el mismo que entra: $Q_S = Q_E$.  Esto debe iniciar cuando el nivel de tanque baja de 20cm.
+* Utilizar el algoritmo de Pathirana, con demandas definidas por presión usando emisores.
+  
    `...thinking...`
    
 
